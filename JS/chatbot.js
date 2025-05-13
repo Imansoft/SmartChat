@@ -55,13 +55,71 @@ document.addEventListener("DOMContentLoaded", () => {
   const addAudioToChat = (sender, audioSrc) => {
     const bubble = document.createElement("div");
     bubble.className = `chat-bubble ${sender}-message`;
+    const audioWrapper = document.createElement("div");
+    audioWrapper.className = "audio-wrapper";
+
+    const playButton = document.createElement("button");
+    playButton.className = "play-button";
+    playButton.textContent = "▶";
+
+    const progressBar = document.createElement("div");
+    progressBar.className = "progress-bar";
+    const progress = document.createElement("div");
+    progress.className = "progress";
+    progressBar.appendChild(progress);
+
+    const timeInfo = document.createElement("div");
+    timeInfo.className = "time-info";
+    const elapsedTime = document.createElement("span");
+    elapsedTime.textContent = "0:00";
+    const totalTime = document.createElement("span");
+    totalTime.textContent = "0:00";
+    timeInfo.appendChild(elapsedTime);
+    timeInfo.appendChild(totalTime);
+
     const audio = document.createElement("audio");
-    audio.controls = true;
     audio.src = audioSrc;
-    bubble.appendChild(audio);
+
+    audio.addEventListener("loadedmetadata", () => {
+      totalTime.textContent = formatTime(audio.duration);
+    });
+
+    audio.addEventListener("timeupdate", () => {
+      elapsedTime.textContent = formatTime(audio.currentTime);
+      const progressPercent = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = `${progressPercent}%`;
+    });
+
+    playButton.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        playButton.textContent = "⏸";
+      } else {
+        audio.pause();
+        playButton.textContent = "▶";
+      }
+    });
+
+    progressBar.addEventListener("click", (e) => {
+      const rect = progressBar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const newTime = (clickX / rect.width) * audio.duration;
+      audio.currentTime = newTime;
+    });
+
+    audioWrapper.appendChild(playButton);
+    audioWrapper.appendChild(progressBar);
+    audioWrapper.appendChild(timeInfo);
+    bubble.appendChild(audioWrapper);
     chatContainer.appendChild(bubble);
     chatContainer.scrollTop = chatContainer.scrollHeight;
     saveChatHistory();
+  };
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   // Handle send button click
@@ -77,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const typingBubble = document.createElement("div");
       typingBubble.className = "chat-bubble bot-message typing";
-      typingBubble.textContent = "typing...";
+      typingBubble.textContent = "Bot is typing...";
       chatContainer.appendChild(typingBubble);
       chatContainer.scrollTop = chatContainer.scrollHeight;
 
@@ -93,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isRecording) {
       // Start recording
       isRecording = true;
-      micButton.textContent = "⏹ Stop";
+      micButton.innerHTML = '<img src="Images/Icons/mic-icon.png" alt="Mic Icon">';
       inputContainer.querySelector("textarea").style.display = "none";
       sendButton.style.display = "none";
 
@@ -123,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
           inputContainer.removeChild(recordingAnimation);
           inputContainer.querySelector("textarea").style.display = "block";
           sendButton.style.display = "block";
-          micButton.textContent = "🎤";
+          micButton.innerHTML = '<img src="Images/Icons/mic-icon.png" alt="Mic Icon">';
 
           const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
           audioChunks = [];
