@@ -62,33 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
     playButton.className = "play-button";
     playButton.textContent = "▶";
 
-    const progressBar = document.createElement("div");
-    progressBar.className = "progress-bar";
-    const progress = document.createElement("div");
-    progress.className = "progress";
-    progressBar.appendChild(progress);
-
-    const timeInfo = document.createElement("div");
-    timeInfo.className = "time-info";
-    const elapsedTime = document.createElement("span");
-    elapsedTime.textContent = "0:00";
-    const totalTime = document.createElement("span");
-    totalTime.textContent = "0:00";
-    timeInfo.appendChild(elapsedTime);
-    timeInfo.appendChild(totalTime);
-
     const audio = document.createElement("audio");
     audio.src = audioSrc;
-
-    audio.addEventListener("loadedmetadata", () => {
-      totalTime.textContent = formatTime(audio.duration);
-    });
-
-    audio.addEventListener("timeupdate", () => {
-      elapsedTime.textContent = formatTime(audio.currentTime);
-      const progressPercent = (audio.currentTime / audio.duration) * 100;
-      progress.style.width = `${progressPercent}%`;
-    });
 
     playButton.addEventListener("click", () => {
       if (audio.paused) {
@@ -100,26 +75,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    progressBar.addEventListener("click", (e) => {
-      const rect = progressBar.getBoundingClientRect();
-      const clickX = e.clientX - rect.left;
-      const newTime = (clickX / rect.width) * audio.duration;
-      audio.currentTime = newTime;
+    audio.addEventListener("ended", () => {
+      playButton.textContent = "▶";
     });
 
     audioWrapper.appendChild(playButton);
-    audioWrapper.appendChild(progressBar);
-    audioWrapper.appendChild(timeInfo);
     bubble.appendChild(audioWrapper);
     chatContainer.appendChild(bubble);
     chatContainer.scrollTop = chatContainer.scrollHeight;
     saveChatHistory();
-  };
-
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   // Handle send button click
