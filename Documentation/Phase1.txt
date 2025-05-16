@@ -1,0 +1,30 @@
+Phase 1: Core MVP (Essential for Launch)
+
+✅Goal: Deliver a working chatbot system for early clients with the most critical functionality.
+
+🎯Features:
+Customer Chat Interface (Web/PWA):
+Text input &
+Customer support representative/Bot reply
+Voice note input (saved as audio file)
+Responsive design for mobile
+
+Admin Dashboard (Basic):
+Dashboard Analytics Overview
+Add company branding (logo, colors) [hardcoded or manual]
+Add FAQs manually (form fields)
+View user messages + timestamps
+View and export captured leads (Name, Email, Phone)
+
+AI Engine Hookup :
+Text parsing (intent detection)
+Response generation using uploaded FAQs + preset data
+STT for voice messages (Whisper)
+TTS for bot replies (YarnGPT/local dialect)
+
+
+🛠 Dev Focus:
+Admin Dashboard Authentication 
+Flask endpoints for chat & admin
+Static JSON or DB storage for FAQs and leads
+Mobile-first HTML + CSS UI (no need for full design)
