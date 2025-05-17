@@ -1,0 +1,165 @@
+.logo{
+    width: 90%;
+    height: 8dvh;
+    display: flex;
+    flex-direction: row;
+    font-size: 2em;
+    justify-self: center;
+    margin: 10px 0;
+    align-items: center;
+    justify-content: flex-start;
+    color: #00d8ff;
+}
+
+.logo img{
+    height: 80%;
+    padding-right: 10px;
+}
+
+.chat_bot_container{
+    border-radius: 20px;
+    width: 90%;
+    height: 80dvh;
+    border: 1.2px solid gray;
+    display: flex;
+    justify-self: center;
+    align-content: center;
+    /* margin-top: 10dvh; */
+    box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.05);
+    flex-direction: column;
+}
+
+.chat_top{
+    height: 15%;
+    border-bottom: 1px solid gray;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.profile{
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background-color: #175dd6;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+    margin-left: 30px;
+    margin-right: 10px;
+}
+
+.name_nd_status{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.name{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.status{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 18px;
+    color: gray;
+}
+
+.dot{
+    background-color: #4ade80;
+    height: 8px;
+    width: 8px;
+    content: '';
+    border-radius: 50%;
+    margin-right: 4px;
+}
+
+.chat_container{
+    height: 70%;
+    background-color: #eeeded;
+}
+
+.chat_bottom{
+    border-top: 1px solid gray;
+    height: 15%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 40px;
+}
+
+.mic_btn, .send_btn{
+    border-radius: 50%;
+    height: 45px;
+    width: 45px;
+    margin: auto;
+    border: 1px solid #3668bf;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.mic_btn{
+    background-color: transparent;
+    border: 0;
+    color: gray;
+}
+
+.send_btn{
+    background-color: #175dd6;
+    color: white;
+}
+
+.lucide{
+    height: 25px;
+    width: 25px;
+}
+
+.chat_bottom input{
+    width: 80%;
+    font-size: 18px;
+    border: 1px solid #3668bf;
+    padding: 10px;
+    margin: 15px 25px;
+    border-radius: 22px;
+    border-color: #3668bf;
+    outline: none;
+}
+
+.chat_bottom input::placeholder{
+    color: gray;
+}
+
+@media screen and (max-width: 376px) {
+    .chat_bot_container{
+        width: 100%;
+        height: 85dvh;
+        margin-top: 0;
+        background-color: #4ade80;
+    }
+
+    .chat_bottom{
+        padding: 0 10px;
+    }
+
+    .chat_bottom input{
+        width: 85%;
+        font-size: 14px;
+        margin: 15px 15px;
+    }
+
+    .mic_btn, .send_btn{
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+    }
+
+    .lucide{
+        height: 20px;
+        width: 20px;
+    }
+}
