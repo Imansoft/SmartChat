@@ -18,7 +18,7 @@
 
 .chat_bot_container{
     border-radius: 20px;
-    width: 90%;
+    width: 90dvw;
     height: 80dvh;
     border: 1.2px solid gray;
     display: flex;
@@ -52,7 +52,6 @@
 .name_nd_status{
     display: flex;
     flex-direction: column;
-
 }
 
 .name{
@@ -86,6 +85,10 @@
     flex-direction: column;
 }
 
+.chat_container::-webkit-scrollbar{
+    display: none;
+}
+
 .bot{
     max-width: 50%;
     width: fit-content;
@@ -100,8 +103,10 @@
 }
 
 .bot p{
-    font-size: 18px;
+    font-size: 20px;
     text-align: left;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .user{
@@ -119,9 +124,11 @@
 }
 
 .user p{
-    font-size: 18px;
+    font-size: 20px;
     text-align: right;
     color: white;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .chat_bottom{
@@ -181,7 +188,7 @@
 
 @media screen and (max-width: 376px) {
     .chat_bot_container{
-        width: 100%;
+        width: 95%;
         height: 85dvh;
         margin-top: 0;
         /* background-color: #4ade80; */

@@ -10,6 +10,8 @@ function Chatbot() {
 
     const [inputValue, setInputValue] = useState("");
 
+    const Chat_container = document.querySelector('.chat_container');
+
     function sendMessage(){
         if(inputValue.trim() === "")
             return;
@@ -20,14 +22,18 @@ function Chatbot() {
        ]);
        setMessages(newMessages);
        setInputValue("");
+       
 
        setTimeout(() => {
         setMessages([
             ...newMessages,
             {'id': messages.length + 1, "message": "I received your message. This is a simulated response.", "sender":"bot"},
         ]);
-        
        }, 1000);
+
+       setTimeout(() => {
+        Chat_container.scrollTop = Chat_container.scrollHeight;
+       }, 1500);
     }
 
     const HandlekeyPressed = (e) => {
@@ -64,8 +70,8 @@ function Chatbot() {
                     </div> */}
                 </div>
                 <div className="chat_bottom">
-                    <button className="mic_btn"><Mic/></button>
-                    <input type="text" name="" id="" className="user_input" placeholder='Type your message here...' onChange={(e)=>{setInputValue(e.target.value)}} value={inputValue} onKeyDown={HandlekeyPressed}/>
+                    {/* <button className="mic_btn"><Mic/></button> */}
+                    <input type="text" name="user's_message" id="" className="user_input" placeholder='Type your message here...' onChange={(e)=>{setInputValue(e.target.value)}} value={inputValue} onKeyDown={HandlekeyPressed}/>
                     <button className='send_btn' onClick={sendMessage}> <Send/> </button>
                 </div>
             </div>
